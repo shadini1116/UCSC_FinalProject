@@ -18,9 +18,9 @@ public class Drivers{
     private static void setDrivers() {
         if (driver == null) {
             switch (browser.toUpperCase()) {
-                case "CHROME":
-                    driver = WebDriverManager.chromedriver().create();
-                    break;
+//                case "CHROME":
+//                    driver = WebDriverManager.chromedriver().create();
+//                    break;
                 case "FIREFOX":
                     driver = WebDriverManager.firefoxdriver().create();
                     break;

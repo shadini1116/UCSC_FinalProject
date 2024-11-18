@@ -12,4 +12,7 @@ public class HomeTest extends BaseTest {
         PageFactory.homePage.validateTheTitle();
     }
 
+
+
+
 }

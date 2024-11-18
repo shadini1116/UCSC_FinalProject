@@ -20,7 +20,7 @@ public class LoginPage extends BasePage {
         driver.get(url);
         return this;
     }
-    public void clickLoginButton(){
+    public void clickLoginButton() {
         click(loginButton);
     }
 

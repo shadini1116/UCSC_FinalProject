@@ -21,8 +21,26 @@ public class HomePage extends BasePage{
 
     public void validateTheTitle(){
         presenceOfElementLocated(dashboardLabel);
+    }
 
+    @FindBy(xpath = "//a[@class='set_employee_current_location_after_login' and @href='https://demo.phppointofsale.com/index.php/home/set_employee_current_location_id/1']")
+    private WebElement defaultLocation;
 
+    public void validateLocation(){
+        presenceOfElementLocated(defaultLocation);
+    }
+
+    public void clickOnDefaultLocation() {
+        clickElement(defaultLocation);
+    }
+
+    @FindBy(xpath = "//div[@class='col-lg-3 col-md-6 col-sm-6 col-xs-12'][3]/a[@href='https://demo.phppointofsale.com/index.php/items']")
+    private WebElement itemWidget;
+    public void validateTheItemWidget(){
+        presenceOfElementLocated(itemWidget);
+    }
+    public void clickOnItemWidget() {
+        clickElement(itemWidget);
     }
 
 
