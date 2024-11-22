@@ -23,6 +23,13 @@ public class HomePage extends BasePage{
         presenceOfElementLocated(dashboardLabel);
     }
 
+    @FindBy(xpath = "//a[text()='Dashboard']")
+    private WebElement dashboard;
+
+    public void clickOnDashboard(){
+        clickElement(dashboard);
+    }
+
     @FindBy(xpath = "//a[@class='set_employee_current_location_after_login' and @href='https://demo.phppointofsale.com/index.php/home/set_employee_current_location_id/1']")
     private WebElement defaultLocation;
 

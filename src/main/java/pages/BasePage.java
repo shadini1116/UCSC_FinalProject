@@ -22,7 +22,7 @@ public abstract class BasePage {
 
     public void click(WebElement locator) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(90));
             wait.until(ExpectedConditions.elementToBeClickable(locator));
             locator.click();
         } catch (NoSuchElementException e) {
@@ -33,7 +33,7 @@ public abstract class BasePage {
     public void presenceOfElementLocated(WebElement element) {
         SoftAssert softAssert = new SoftAssert();
         try {
-            WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(60));
             wait.until(ExpectedConditions.visibilityOf(element));
             if (element.isDisplayed()) {
                 softAssert.assertTrue(true);
@@ -48,45 +48,44 @@ public abstract class BasePage {
     }
 
     public void clickElement(WebElement component) {
-        int retries = 3; // Number of retries for stale element
+        int retries = 3;  // Number of retries
         for (int i = 0; i < retries; i++) {
             try {
-                // Wait for the element to be clickable
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(component));
+                wait.until(ExpectedConditions.elementToBeClickable(component));
 
-                // Scroll into view (if necessary) before clicking
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+                // Scroll into view to ensure visibility
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", component);
 
-                // Ensure element is clickable and not hidden by another element
-                Actions actions = new Actions(driver);
-                actions.moveToElement(element).click().perform();
+                // Try a normal click first
+                component.click();
                 System.out.println("Element clicked successfully.");
-                return; // Exit the method after a successful click
+                return;  // Exit method if successful
+
             } catch (ElementClickInterceptedException e) {
-                System.out.println("Element click intercepted. Retrying: " + e.getMessage());
-                try {
-                    Thread.sleep(1000); // Sleep for 1 second before retrying
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
+                System.out.println("Element click intercepted. Trying JavaScript click: " + e.getMessage());
+                // Try clicking using JavaScript if intercepted
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", component);
+
             } catch (StaleElementReferenceException e) {
-                System.out.println("Retrying due to StaleElementReferenceException: " + e.getMessage());
+                System.out.println("Stale Element detected. Retrying: " + e.getMessage());
+                // Re-locate the element and retry
                 try {
-                    Thread.sleep(1000); // Wait before retrying to allow DOM to stabilize
+                    Thread.sleep(1000);
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                 }
             } catch (NoSuchElementException e) {
                 System.out.println("Element not found: " + e.getMessage());
-                break; // Exit loop if element cannot be found
+                break;
             } catch (TimeoutException e) {
                 System.out.println("Timeout waiting for the element: " + e.getMessage());
-                break; // Exit loop on timeout
+                break;
             }
         }
-        System.out.println("Failed to click the element after retries.");
+        throw new RuntimeException("Failed to click the element after multiple retries.");
     }
+
 
     public void inputText(WebElement txtField, String text) {
         try {
@@ -103,13 +102,26 @@ public abstract class BasePage {
     }
 
 
+
+    public void inputNumeric(WebElement numField, Integer number) {
+        try {
+            // Clear the field
+            numField.clear();
+            // Enter the provided number
+            numField.sendKeys(number.toString());
+            // Log success
+            System.out.println("Entered number: " + number + " into element: " + numField);
+        } catch (Exception e) {
+            System.out.println("Failed to enter number into element: " + e.getMessage());
+            throw e; // Rethrow the exception to fail the test if necessary
+        }
+    }
+
+
     public boolean isRequiredError(WebElement validationMsg) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         return wait.until(ExpectedConditions.visibilityOf(validationMsg)).isDisplayed();
     }
-
-
-
 
 
 }
