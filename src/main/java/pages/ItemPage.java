@@ -57,7 +57,7 @@ public class ItemPage extends BasePage {
     private WebElement loyaltyMultiplier;
 
    public void enterItemName(){
-       inputText(itemName,"Test Item Name");
+       inputText(itemName,addedItemName);
    }
     public void enterBarcodeName(){
         inputText(barcodeName,"Test Barcode Name");

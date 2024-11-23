@@ -18,12 +18,12 @@ public class ItemTest extends BaseTest {
         PageFactory.homePage.clickOnDefaultLocation();
     }
 
-    @Test(dependsOnMethods = "setLocation")
-    public void refreshDashBoard(){
-        PageFactory.homePage.clickOnDashboard();
-    }
+//    @Test(dependsOnMethods = "setLocation")
+//    public void refreshDashBoard(){
+//        PageFactory.homePage.clickOnDashboard();
+//    }
 
-    @Test(dependsOnMethods = "refreshDashBoard")
+    @Test(priority=1)
     public void testItemWidget() {
         PageFactory.homePage.validateTheItemWidget();
     }
