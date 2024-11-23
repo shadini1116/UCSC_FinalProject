@@ -15,6 +15,8 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//a[text()='Dashboard']")
     private WebElement dashboardLabel;
 
+
+
     public HomePage(WebDriver driver) {
         super(driver);
     }

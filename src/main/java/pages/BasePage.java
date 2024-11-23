@@ -17,6 +17,7 @@ public abstract class BasePage {
     }
 
 
+
     public void click(WebElement locator) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
@@ -26,6 +27,8 @@ public abstract class BasePage {
             System.out.println(e);
         }
     }
+
+
 
     public void presenceOfElementLocated(WebElement element) {
         SoftAssert softAssert = new SoftAssert();

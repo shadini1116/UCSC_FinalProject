@@ -10,6 +10,7 @@ public class HomeTest extends BaseTest {
     @Test
     public void testHomePageFeature() {
         PageFactory.homePage.validateTheTitle();
+        PageFactory.customerPage.ignoreLocation();
     }
 
 }
