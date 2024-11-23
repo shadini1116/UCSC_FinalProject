@@ -25,6 +25,28 @@ public class HomePage extends BasePage{
 
     }
 
+    @FindBy(xpath = "//span[@class='text' and text()='Appointments']/parent::a")
+    private WebElement appointmentsIcon;
+
+    public void clickOnAppointments(){
+        click(appointmentsIcon);
+
+
+    }
+    public void checkAppointmentIcon(){
+        presenceOfElementLocated(appointmentsIcon);
+    }
+    @FindBy(xpath = "//a[@class='set_employee_current_location_after_login' and @href='https://demo.phppointofsale.com/index.php/home/set_employee_current_location_id/1']")
+    private WebElement defaultLocation;
+
+    public void validateLocation(){
+        presenceOfElementLocated(defaultLocation);
+    }
+
+    public void clickOnDefaultLocation() {
+        click(defaultLocation);
+    }
+
 
 
 }
